@@ -4,19 +4,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { ParkData } from './providers/park-data';
+
+
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [ParkData]
 })
 export class MyApp {
-  rootPage:any = TabsPage;
+  rootPage = TabsPage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    platform.ready().then(() => {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+              public parkData: ParkData) {
+   platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+      splashScreen.show();
     });
+    console.log(parkData.load());
   }
 }
